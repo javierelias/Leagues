@@ -1,0 +1,94 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="JE" id="00001">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="competitions" />
+			</not>
+		</preConditions>
+		<sql dbms="postgresql">
+			create table competitions (
+			competition_id BIGSERIAL
+			PRIMARY KEY,
+			competition_name VARCHAR (50),
+			competition_code VARCHAR
+			(50),
+			competition_areaName VARCHAR (50)
+			);
+		</sql>
+	</changeSet>
+
+	<changeSet author="JE" id="00002">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="competition_teams" />
+			</not>
+		</preConditions>
+		<sql dbms="postgresql">
+			create table competition_teams (
+			competition_id BIGINT,
+			team_id BIGINT
+			);
+		</sql>
+	</changeSet>
+
+	<changeSet author="JE" id="00003">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="teams" />
+			</not>
+		</preConditions>
+		<sql dbms="postgresql">
+			create table teams (
+			team_id BIGSERIAL PRIMARY KEY,
+			team_name VARCHAR (50),
+			team_tla VARCHAR (50),
+			team_shortName VARCHAR
+			(50),
+			team_areaName VARCHAR (50),
+			team_email VARCHAR (50)
+			);
+		</sql>
+	</changeSet>
+
+
+	<changeSet author="JE" id="00004">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="team_players" />
+			</not>
+		</preConditions>
+		<sql dbms="postgresql">
+			create table team_players (
+			team_id BIGINT,
+			player_id
+			BIGINT
+			);
+		</sql>
+	</changeSet>
+
+	<changeSet author="JE" id="00005">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="players" />
+			</not>
+		</preConditions>
+		<sql dbms="postgresql">
+			create table players (
+			player_id BIGSERIAL PRIMARY KEY,
+			player_name VARCHAR (50),
+			player_position VARCHAR (50),
+			player_dateOfBirth TIMESTAMP WITHOUT
+			TIME ZONE,
+			player_countryOfBirth
+			VARCHAR (50),
+			player_nationality
+			VARCHAR (50)
+			);
+		</sql>
+	</changeSet>
+
+</databaseChangeLog>
